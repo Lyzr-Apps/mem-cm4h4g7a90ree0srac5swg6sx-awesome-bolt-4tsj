@@ -1,0 +1,14 @@
+{
+  "agent_name": "Structure Planner Agent",
+  "agent_id": "699961dea63b170a3b817100",
+  "description": "Analyzes the selected reflective framework (Gibbs, Kolb, Driscoll, Schon, etc.) and maps user-provided experiences, challenges, and insights to each required section, producing a detailed section-by-section outline with word allocation",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "response": "string"
+  },
+  "example_response": {
+    "response": "The structured outline with sections, word allocations, key points mapped from user inputs, and transition notes in detailed text format"
+  }
+}

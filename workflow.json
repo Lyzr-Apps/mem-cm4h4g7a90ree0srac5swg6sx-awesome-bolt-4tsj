@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "Student Reflection Inputs",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "journal_coordinator",
+      "type": "Agent",
+      "label": "Journal Coordinator",
+      "nodeCategory": "agent"
+    },
+    {
+      "id": "structure_planner",
+      "type": "Agent",
+      "label": "Structure Planner Agent",
+      "nodeCategory": "agent"
+    },
+    {
+      "id": "reflective_writer",
+      "type": "Agent",
+      "label": "Reflective Writer Agent",
+      "nodeCategory": "agent"
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Generated Journal",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    {
+      "source": "input_node",
+      "target": "journal_coordinator"
+    },
+    {
+      "source": "journal_coordinator",
+      "target": "structure_planner"
+    },
+    {
+      "source": "journal_coordinator",
+      "target": "reflective_writer"
+    },
+    {
+      "source": "journal_coordinator",
+      "target": "output_node"
+    }
+  ],
+  "agents": {
+    "structure_planner": {
+      "agent_id": "699961dea63b170a3b817100",
+      "name": "Structure Planner Agent",
+      "description": "Analyzes the selected reflective framework (Gibbs, Kolb, Driscoll, Schon, etc.) and maps user-provided experiences, challenges, and insights to each required section, producing a detailed section-by-section outline with word allocation",
+      "role": "Reflective Framework Structure Specialist",
+      "model": "gpt-4.1",
+      "provider": "openai",
+      "temperature": 0.3,
+      "top_p": 1,
+      "file_output": false,
+      "image_output_config": null,
+      "voice_config": null,
+      "managed_agents": []
+    },
+    "reflective_writer": {
+      "agent_id": "699961de730bbd74d53e8a2d",
+      "name": "Reflective Writer Agent",
+      "description": "Takes the structured outline and raw user inputs to compose a complete 2000-2200 word reflective journal in first-person academic voice with smooth transitions, emotional depth, critical analysis, and transformative reflection",
+      "role": "Academic Reflective Writing Specialist",
+      "model": "gpt-4.1",
+      "provider": "openai",
+      "temperature": 0.7,
+      "top_p": 0.95,
+      "file_output": false,
+      "image_output_config": null,
+      "voice_config": null,
+      "managed_agents": []
+    },
+    "journal_coordinator": {
+      "agent_id": "699961f1a63b170a3b817102",
+      "name": "Journal Coordinator",
+      "description": "Coordinates the structure planning and reflective writing sub-agents, passes user inputs to both, and aggregates the final complete journal output",
+      "role": "Reflective Journal Generation Coordinator",
+      "model": "gpt-4.1",
+      "provider": "openai",
+      "temperature": 0.3,
+      "top_p": 1,
+      "file_output": true,
+      "image_output_config": null,
+      "voice_config": null,
+      "managed_agents": [
+        "699961dea63b170a3b817100",
+        "699961de730bbd74d53e8a2d"
+      ]
+    }
+  }
+}

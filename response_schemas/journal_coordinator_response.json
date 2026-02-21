@@ -1,0 +1,40 @@
+{
+  "agent_name": "Journal Coordinator",
+  "agent_id": "699961f1a63b170a3b817102",
+  "description": "Coordinates the structure planning and reflective writing sub-agents, passes user inputs to both, and aggregates the final complete journal output",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "framework": "string",
+    "topic": "string",
+    "word_count": "number",
+    "sections": [
+      {
+        "heading": "string",
+        "content": "string"
+      }
+    ],
+    "full_journal": "string"
+  },
+  "example_response": {
+    "framework": "The reflective framework used",
+    "topic": "The topic or module name",
+    "word_count": 0,
+    "sections": [
+      {
+        "heading": "Section heading",
+        "content": "Section content in markdown"
+      }
+    ],
+    "full_journal": "The complete reflective journal as a single markdown string"
+  },
+  "has_module_outputs": true,
+  "module_outputs_example": {
+    "artifact_files": [
+      {
+        "file_url": "https://example.com/file.pdf"
+      }
+    ]
+  }
+}

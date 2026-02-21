@@ -1,0 +1,19 @@
+{
+  "agent_ids": {
+    "structure_planner": "699961dea63b170a3b817100",
+    "reflective_writer": "699961de730bbd74d53e8a2d",
+    "journal_coordinator": "699961f1a63b170a3b817102"
+  },
+  "manager_agent_id": "699961f1a63b170a3b817102",
+  "sub_agent_ids": [
+    "699961dea63b170a3b817100",
+    "699961de730bbd74d53e8a2d"
+  ],
+  "rag_ids": {},
+  "schedule_ids": {},
+  "response_schemas": {
+    "structure_planner": "response_schemas/structure_planner_agent_response.json",
+    "reflective_writer": "response_schemas/reflective_writer_agent_response.json",
+    "journal_coordinator": "response_schemas/journal_coordinator_response.json"
+  }
+}

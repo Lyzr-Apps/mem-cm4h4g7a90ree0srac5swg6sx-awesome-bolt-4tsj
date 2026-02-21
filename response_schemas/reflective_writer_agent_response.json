@@ -1,0 +1,14 @@
+{
+  "agent_name": "Reflective Writer Agent",
+  "agent_id": "699961de730bbd74d53e8a2d",
+  "description": "Takes the structured outline and raw user inputs to compose a complete 2000-2200 word reflective journal in first-person academic voice with smooth transitions, emotional depth, critical analysis, and transformative reflection",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "response": "string"
+  },
+  "example_response": {
+    "response": "The complete reflective journal text with markdown section headings, written in first-person academic voice"
+  }
+}
