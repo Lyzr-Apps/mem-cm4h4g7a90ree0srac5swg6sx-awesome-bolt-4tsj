@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { callAIAgent, AIAgentResponse } from '@/lib/aiAgent'
 import { copyToClipboard } from '@/lib/clipboard'
 import { Button } from '@/components/ui/button'
@@ -8,13 +8,13 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
   FiFileText,
@@ -254,32 +254,46 @@ function StatusMessage({ message, type }: { message: string; type: 'success' | '
 
 function LoadingSkeleton() {
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center gap-3">
-        <FiLoader className="h-5 w-5 animate-spin text-muted-foreground" />
-        <span className="text-sm text-muted-foreground font-sans tracking-tight animate-pulse">
-          Crafting your reflective journal...
-        </span>
-      </div>
-      <Separator />
-      <div className="space-y-4">
-        <Skeleton className="h-6 w-2/5 rounded-none" />
-        <Skeleton className="h-4 w-full rounded-none" />
-        <Skeleton className="h-4 w-full rounded-none" />
-        <Skeleton className="h-4 w-4/5 rounded-none" />
-      </div>
-      <div className="space-y-4">
-        <Skeleton className="h-6 w-1/3 rounded-none" />
-        <Skeleton className="h-4 w-full rounded-none" />
-        <Skeleton className="h-4 w-full rounded-none" />
-        <Skeleton className="h-4 w-3/5 rounded-none" />
-      </div>
-      <div className="space-y-4">
-        <Skeleton className="h-6 w-2/5 rounded-none" />
-        <Skeleton className="h-4 w-full rounded-none" />
-        <Skeleton className="h-4 w-full rounded-none" />
-        <Skeleton className="h-4 w-4/5 rounded-none" />
-        <Skeleton className="h-4 w-2/3 rounded-none" />
+    <div className="p-6 lg:p-8 bg-muted/50">
+      <div className="bg-white border border-border mx-auto" style={{ maxWidth: '720px', minHeight: '600px' }}>
+        {/* Simulated header bar */}
+        <div className="border-b border-border px-8 py-2 bg-secondary/30">
+          <Skeleton className="h-3 w-24 rounded-none" />
+        </div>
+        {/* Simulated title area */}
+        <div className="px-10 pt-12 pb-8 text-center border-b border-border">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <FiLoader className="h-5 w-5 animate-spin text-muted-foreground" />
+            <span className="text-sm text-muted-foreground font-sans tracking-tight animate-pulse">
+              Crafting your reflective journal...
+            </span>
+          </div>
+          <Skeleton className="h-8 w-3/5 mx-auto rounded-none mb-4" />
+          <Skeleton className="h-4 w-1/4 mx-auto rounded-none mb-1" />
+          <Skeleton className="h-4 w-1/5 mx-auto rounded-none" />
+        </div>
+        {/* Simulated body sections */}
+        <div className="px-10 py-8 space-y-8">
+          <div className="space-y-3">
+            <Skeleton className="h-6 w-2/5 rounded-none" />
+            <Skeleton className="h-4 w-full rounded-none" />
+            <Skeleton className="h-4 w-full rounded-none" />
+            <Skeleton className="h-4 w-4/5 rounded-none" />
+          </div>
+          <div className="space-y-3">
+            <Skeleton className="h-6 w-1/3 rounded-none" />
+            <Skeleton className="h-4 w-full rounded-none" />
+            <Skeleton className="h-4 w-full rounded-none" />
+            <Skeleton className="h-4 w-3/5 rounded-none" />
+          </div>
+          <div className="space-y-3">
+            <Skeleton className="h-6 w-2/5 rounded-none" />
+            <Skeleton className="h-4 w-full rounded-none" />
+            <Skeleton className="h-4 w-full rounded-none" />
+            <Skeleton className="h-4 w-4/5 rounded-none" />
+            <Skeleton className="h-4 w-2/3 rounded-none" />
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -287,12 +301,113 @@ function LoadingSkeleton() {
 
 function EmptyOutputState() {
   return (
-    <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center px-8">
-      <FiEdit3 className="h-12 w-12 text-muted-foreground mb-4" />
-      <h3 className="font-serif font-bold text-lg tracking-tight mb-2">Your Journal Awaits</h3>
-      <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
-        Fill in your reflections on the left and click Generate to create a structured reflective journal.
-      </p>
+    <div className="p-6 lg:p-8 bg-muted/50 h-full flex items-center justify-center">
+      <div className="bg-white border border-border mx-auto text-center py-20 px-12" style={{ maxWidth: '720px' }}>
+        <FiEdit3 className="h-10 w-10 text-muted-foreground mx-auto mb-4" />
+        <h3 className="font-serif font-bold text-lg tracking-tight mb-2">Your Journal Awaits</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed max-w-sm mx-auto mb-6">
+          Fill in your reflections on the left and click Generate to create a structured academic reflective journal.
+        </p>
+        <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <FiFileText className="h-3.5 w-3.5" />
+            Academic Format
+          </span>
+          <span className="flex items-center gap-1.5">
+            <FiBook className="h-3.5 w-3.5" />
+            APA References
+          </span>
+          <span className="flex items-center gap-1.5">
+            <FiHash className="h-3.5 w-3.5" />
+            2000-2200 Words
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AcademicDocumentView({
+  journal,
+  sections,
+  isEditable,
+}: {
+  journal: { topic: string; framework: string; word_count: number; full_journal: string }
+  sections: JournalSection[]
+  isEditable?: boolean
+}) {
+  const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  const hasSections = Array.isArray(sections) && sections.length > 0
+
+  return (
+    <div className="bg-white border border-border mx-auto" style={{ maxWidth: '720px', minHeight: '900px' }}>
+      {/* Document Header Bar */}
+      <div className="border-b border-border px-8 py-2 flex items-center justify-between bg-secondary/30">
+        <span className="text-[10px] font-sans uppercase tracking-widest text-muted-foreground">
+          Reflective Journal
+        </span>
+        <span className="text-[10px] font-sans text-muted-foreground">
+          {currentDate}
+        </span>
+      </div>
+
+      {/* Title Page Section */}
+      <div className="px-10 pt-12 pb-8 text-center border-b border-border">
+        <h1 className="font-serif font-bold text-2xl tracking-tight leading-tight mb-6">
+          {journal.topic || 'Untitled Journal'}
+        </h1>
+        <div className="space-y-1 text-sm text-muted-foreground font-sans">
+          <p>Framework: <span className="font-medium text-foreground">{journal.framework || 'Not specified'}</span></p>
+          <p>Date: <span className="font-medium text-foreground">{currentDate}</span></p>
+          <p>Word Count: <span className="font-medium text-foreground">{countWords(journal.full_journal) || journal.word_count || 0}</span></p>
+        </div>
+      </div>
+
+      {/* Document Body */}
+      <div
+        className="px-10 py-8"
+        contentEditable={isEditable}
+        suppressContentEditableWarning
+        style={{ lineHeight: '1.8' }}
+      >
+        {hasSections ? (
+          <div className="space-y-8">
+            {sections.map((section, idx) => {
+              const isReferences = section.heading?.toLowerCase().includes('reference')
+              return (
+                <div key={idx}>
+                  <h2
+                    className={`font-serif font-bold tracking-tight mb-3 ${
+                      isReferences ? 'text-base mt-8 pt-6 border-t border-border' : 'text-lg'
+                    }`}
+                  >
+                    {section.heading}
+                  </h2>
+                  <div className="font-sans text-sm leading-relaxed tracking-tight text-foreground">
+                    {renderMarkdown(section.content || '')}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ) : journal.full_journal ? (
+          <div className="font-sans text-sm leading-relaxed tracking-tight text-foreground">
+            {renderMarkdown(journal.full_journal)}
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground italic">No content available.</p>
+        )}
+      </div>
+
+      {/* Document Footer */}
+      <div className="border-t border-border px-8 py-2 flex items-center justify-between bg-secondary/30">
+        <span className="text-[10px] font-sans text-muted-foreground">
+          {journal.framework}
+        </span>
+        <span className="text-[10px] font-sans text-muted-foreground">
+          {countWords(journal.full_journal) || journal.word_count || 0} words
+        </span>
+      </div>
     </div>
   )
 }
@@ -306,8 +421,8 @@ function JournalOutput({
   onCopy: () => void
   copyStatus: string
 }) {
-  const contentRef = useRef<HTMLDivElement>(null)
   const hasFiles = Array.isArray(journal.artifactFiles) && journal.artifactFiles.length > 0
+  const [viewMode, setViewMode] = useState<'document' | 'edit'>('document')
 
   const handleDownload = (url: string, filename: string) => {
     const a = document.createElement('a')
@@ -334,6 +449,24 @@ function JournalOutput({
             <FiHash className="h-3 w-3" />
             {actualWordCount || journal.word_count || 0} words
           </span>
+          <Separator orientation="vertical" className="h-4" />
+          {/* View mode toggle */}
+          <div className="flex items-center gap-1 border border-border rounded-none">
+            <button
+              onClick={() => setViewMode('document')}
+              className={`px-2 py-1 text-xs font-sans transition-colors ${viewMode === 'document' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}`}
+            >
+              <FiFileText className="h-3 w-3 inline mr-1" />
+              Document
+            </button>
+            <button
+              onClick={() => setViewMode('edit')}
+              className={`px-2 py-1 text-xs font-sans transition-colors ${viewMode === 'edit' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}`}
+            >
+              <FiEdit3 className="h-3 w-3 inline mr-1" />
+              Edit
+            </button>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           {hasFiles &&
@@ -358,52 +491,35 @@ function JournalOutput({
           </Button>
         </div>
       </div>
-      {/* Journal content */}
+
+      {/* Content area */}
       <ScrollArea className="flex-1">
-        <div className="p-6 lg:p-8">
-          {journal.topic && (
-            <h1 className="font-serif font-bold text-2xl tracking-tight mb-1">{journal.topic}</h1>
-          )}
-          {journal.framework && (
-            <p className="text-xs text-muted-foreground mb-6">Framework: {journal.framework}</p>
-          )}
-          <Separator className="mb-6" />
-          {/* Render sections if available */}
-          {Array.isArray(journal.sections) && journal.sections.length > 0 ? (
-            <div className="space-y-6">
-              {journal.sections.map((section, idx) => (
-                <div key={idx}>
-                  <h2 className="font-serif font-bold text-lg tracking-tight mb-2">{section.heading}</h2>
-                  <div className="font-sans tracking-tight leading-relaxed text-foreground">
-                    {renderMarkdown(section.content || '')}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : journal.full_journal ? (
-            <div className="font-sans tracking-tight leading-relaxed text-foreground">
-              {renderMarkdown(journal.full_journal)}
-            </div>
-          ) : (
-            <p className="text-sm text-muted-foreground">No content available.</p>
-          )}
-          {/* Editable raw text area */}
-          <Separator className="my-8" />
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <FiEdit3 className="h-4 w-4 text-muted-foreground" />
-              <Label className="text-xs text-muted-foreground uppercase tracking-wide">Editable Full Text</Label>
-            </div>
-            <div
-              ref={contentRef}
-              contentEditable
-              suppressContentEditableWarning
-              className="min-h-[200px] p-4 border border-border bg-background text-sm font-sans leading-relaxed tracking-tight rounded-none focus:outline-none focus:ring-1 focus:ring-ring whitespace-pre-wrap"
-            >
-              {journal.full_journal || ''}
-            </div>
+        {viewMode === 'document' ? (
+          <div className="p-6 lg:p-8 bg-muted/50">
+            <AcademicDocumentView
+              journal={journal}
+              sections={Array.isArray(journal.sections) ? journal.sections : []}
+              isEditable={false}
+            />
           </div>
-        </div>
+        ) : (
+          <div className="p-6 lg:p-8">
+            <div className="flex items-center gap-2 mb-3">
+              <FiEdit3 className="h-4 w-4 text-muted-foreground" />
+              <Label className="text-xs text-muted-foreground uppercase tracking-wide font-sans font-medium">
+                Editable Full Text
+              </Label>
+              <span className="text-xs text-muted-foreground ml-auto">
+                {actualWordCount} words
+              </span>
+            </div>
+            <AcademicDocumentView
+              journal={journal}
+              sections={Array.isArray(journal.sections) ? journal.sections : []}
+              isEditable={true}
+            />
+          </div>
+        )}
       </ScrollArea>
     </div>
   )
@@ -1053,24 +1169,18 @@ Target Word Count: ${wordCount}`
                 </div>
               </DialogHeader>
               <ScrollArea className="flex-1 max-h-[60vh]">
-                <div className="p-6">
-                  {selectedHistoryJournal && Array.isArray(selectedHistoryJournal.sections) && selectedHistoryJournal.sections.length > 0 ? (
-                    <div className="space-y-6">
-                      {selectedHistoryJournal.sections.map((section, idx) => (
-                        <div key={idx}>
-                          <h2 className="font-serif font-bold text-lg tracking-tight mb-2">{section.heading}</h2>
-                          <div className="font-sans tracking-tight leading-relaxed">
-                            {renderMarkdown(section.content || '')}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : selectedHistoryJournal?.full_journal ? (
-                    <div className="font-sans tracking-tight leading-relaxed">
-                      {renderMarkdown(selectedHistoryJournal.full_journal)}
-                    </div>
-                  ) : (
-                    <p className="text-sm text-muted-foreground">No content available.</p>
+                <div className="p-6 bg-muted/50">
+                  {selectedHistoryJournal && (
+                    <AcademicDocumentView
+                      journal={{
+                        topic: selectedHistoryJournal.topic,
+                        framework: selectedHistoryJournal.framework,
+                        word_count: selectedHistoryJournal.word_count,
+                        full_journal: selectedHistoryJournal.full_journal,
+                      }}
+                      sections={Array.isArray(selectedHistoryJournal.sections) ? selectedHistoryJournal.sections : []}
+                      isEditable={false}
+                    />
                   )}
                 </div>
               </ScrollArea>
